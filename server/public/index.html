@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -10,22 +11,24 @@
     <h1>Server-Side Calculator</h1>
 
     <form data-testid="calculator">
-      <input data-testid="numOne" placeholder="First Number">
-      <button>+</button>
-      <button>-</button>
-      <button>*</button>
-      <button>/</button>
-      <input data-testid="numTwo" placeholder="Second Number">
-      <button>=</button>
+      <input data-testid="numOne" placeholder="First Number" id="numOne" type="number">
+      <button onclick="add(event)">+</button>
+      <button onclick="subtract(event)">-</button>
+      <button onclick="multiply(event)">*</button>
+      <button onclick="divide(event)">/</button>
+      <input data-testid="numTwo" placeholder="Second Number" id="numTwo" type="number">
+      <button onclick="submitData(event)">=</button>
       <button>C</button>
     </form>
 
     <section data-testid="recentResult">
       <!-- The most recent calculation result goes here. -->
+      <h2 id="recent-Result"></h2>
     </section>
 
     <section data-testid="resultHistory">
       <!-- The list of calculation results goes here. -->
+      <ul id="result-History"></ul>
     </section>
   </body>
 </html>

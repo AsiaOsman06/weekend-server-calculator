@@ -1,20 +1,67 @@
 const express = require('express');
 const app = express();
-let PORT = process.env.PORT || 5000;
+let PORT = process.env.PORT || 5001;
 
 app.use(express.json());
 app.use(express.static('server/public'));
 
 // Global variable that will contain all of the
 // calculation objects:
-let calculations = []
+let calculations = {
+    numOne:[],
+    numTwo:[],
+    operator: [],
+    result: [],
+    equation: []
+  };
 
 
 // Here's a wonderful place to make some routes:
+//! GET /calculations
+app.get('/calculations', (req, res) => {
+  console.log('GET /calculations received a request!');
+  // console.log('req is:', req); // 👈 This will log an ENORMOUS object.
+  res.send(calculations);
+})
 
-// GET /calculations
 
-// POST /calculations
+//! POST /calculations
+app.post('/calculations', (req, res) => {
+  console.log('POST /calculations received a request!');
+  let dataToAdd = req.body.inputData;
+
+  number1 = (dataToAdd.numOne);
+  number2 = (dataToAdd.numTwo);
+  operator = (dataToAdd.operator);
+  let result;
+
+  if(operator === '+'){
+    result = Number(number1) + Number(number2);
+  }else if(operator === '-'){
+    result = Number(number1) - Number(number2);
+  }else if(operator === '*'){
+    result = Number(number1) * Number(number2);
+  }else if(operator === '/'){
+    result = Number(number1) / Number(number2);
+  };
+
+  let equation = `${number1} ${operator} ${number2} = ${result}`
+
+  calculations.numOne.push(number1);
+  calculations.numTwo.push(number2);
+  calculations.operator.push(operator);
+  calculations.result.push(result);
+  calculations.equation.push(equation);
+
+  // console.log(calculations)
+
+  res.sendStatus(201); // 👈 Send "CREATED" back to client.
+})
+
+
+
+
+
 
 
 // PLEASE DO NOT MODIFY ANY CODE BELOW THESE BEARS:
