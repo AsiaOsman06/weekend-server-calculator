@@ -59,13 +59,19 @@ function fetchCalculations() {
   });
 }
 
+
 function renderCalculation(calculations){
     
-    let recentResult = document.getElementById('recent-Result');
-    recentResult.innerHTML = calculations.result;
+    let recentResult = document.getElementById('recent-result');
+    recentResult.innerHTML = calculations[calculations.length-1].result;
+    
 
-
-    let resultHistory =  document.getElementById('result-History')
-    resultHistory.innerHTML += `<li>${calculations.equation}</li>`
-
-}
+    let resultHistory =  document.getElementById('result-history');
+     resultHistory.innerHTML ='';
+    for (let acalculation of calculations){
+      resultHistory.innerHTML +=`
+       <li>${acalculation.numOne} ${acalculation.operator} ${acalculation.numTwo} = ${acalculation.result}</li>`
+    };
+   
+  }
+fetchCalculations();

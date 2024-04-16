@@ -7,13 +7,22 @@ app.use(express.static('server/public'));
 
 // Global variable that will contain all of the
 // calculation objects:
-let calculations = {
-    numOne:[],
-    numTwo:[],
-    operator: [],
-    result: [],
-    equation: []
-  };
+let calculations = 
+    [
+    {
+      numOne: 3,
+      numTwo: 5,
+      operator: '+',
+      result: 8
+    },
+    {
+      numOne: 11,
+      numTwo: 7,
+      operator: '-',
+      result: 4
+    }
+  ]
+
 
 
 // Here's a wonderful place to make some routes:
@@ -29,32 +38,35 @@ app.get('/calculations', (req, res) => {
 app.post('/calculations', (req, res) => {
   console.log('POST /calculations received a request!');
   let dataToAdd = req.body.inputData;
+  console.log('data to add',dataToAdd);
 
-  number1 = (dataToAdd.numOne);
-  number2 = (dataToAdd.numTwo);
-  operator = (dataToAdd.operator);
+
   let result;
+  let operator = dataToAdd.operator;
+  let numOne = dataToAdd.numOne;
+  let numTwo = dataToAdd.numTwo;
+
+
 
   if(operator === '+'){
-    result = Number(number1) + Number(number2);
+    result = Number(numOne) + Number(numTwo);
   }else if(operator === '-'){
-    result = Number(number1) - Number(number2);
+    result = Number(numOne) - Number(numTwo);
   }else if(operator === '*'){
-    result = Number(number1) * Number(number2);
+    result = Number(numOne) * Number(numTwo);
   }else if(operator === '/'){
-    result = Number(number1) / Number(number2);
+    result = Number(numOne) / Number(numTwo);
   };
 
-  let equation = `${number1} ${operator} ${number2} = ${result}`
-
-  calculations.numOne.push(number1);
-  calculations.numTwo.push(number2);
-  calculations.operator.push(operator);
-  calculations.result.push(result);
-  calculations.equation.push(equation);
-
-  // console.log(calculations)
-
+let calculationsObject = {
+      numOne: dataToAdd.numOne,
+      numTwo: dataToAdd.numTwo,
+      operator: dataToAdd.operator,
+      result: result
+}
+calculations.push(calculationsObject);
+console.log('calcualtions of objects', calculationsObject);
+ 
   res.sendStatus(201); // 👈 Send "CREATED" back to client.
 })
 
