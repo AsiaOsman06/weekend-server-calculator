@@ -10,12 +10,16 @@ function submitData(event) {
   let numOne = document.getElementById("numOne").value;
   let numTwo = document.getElementById("numTwo").value;
 
-  let inputData = { numOne, numTwo, operator };
-
+  // console.log('what is my operator',operator)
   axios({
     method: "POST",
     url: "/calculations",
-    data: { inputData },
+    data: 
+    {
+      numOne:numOne,
+      numTwo:numTwo,
+      operator:operator
+    },
   }).then((response) => {
     console.log("sent over data and message coming back.");
     fetchCalculations();
@@ -41,6 +45,13 @@ function divide(event) {
   event.preventDefault();
   // OPERATOR = "";
   operator = "/";
+}
+
+function clearInput(event){
+  event.preventDefault(); 
+  // reading the values and put the in numone & numtwo
+document.getElementById("numOne").value= '';
+ document.getElementById("numTwo").value = '';
 }
 
 //! "POST" END

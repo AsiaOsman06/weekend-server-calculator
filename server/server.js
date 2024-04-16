@@ -37,7 +37,7 @@ app.get('/calculations', (req, res) => {
 //! POST /calculations
 app.post('/calculations', (req, res) => {
   console.log('POST /calculations received a request!');
-  let dataToAdd = req.body.inputData;
+  let dataToAdd = req.body;
   console.log('data to add',dataToAdd);
 
 
